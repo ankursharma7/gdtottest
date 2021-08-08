@@ -1,4 +1,7 @@
 from Google import Create_Service
+import os
+import io
+from googleapiclient.http import MediaIoBaseDownload
 
 
 class Drive:
@@ -23,10 +26,25 @@ class Drive:
 
         raise Exception("file not found.")
 
+    def download_by_id(self, file_id, file_name, download_location):
+
+        request = self.service.files().get_media(fileId=file_id)
+        fh = io.FileIO(
+            os.path.join(download_location, file_name),
+            "wb",
+        )
+
+        downloader = MediaIoBaseDownload(fd=fh, request=request, chunksize=100000000)
+        done = False
+
+        while not done:
+            status, done = downloader.next_chunk()
+            print("downloading progress", status.progress() * 100)
+
 
 if __name__ == "__main__":
     drive = Drive("14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k")
     file = drive.get_file_id_by_name(
         "Gully Boy 2019 BluRay Hindi 1080p x264 DD 5.1 ESub - mkvCinemas [Telly].mkv"
     )
-    print(file)
+    drive.download_by_id(file["id"], file["name"], r"D:\test")

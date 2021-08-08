@@ -3,8 +3,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
-import os, time
-
 
 class gdtot_Handler:
     #  this will initialize new selenium session for work
