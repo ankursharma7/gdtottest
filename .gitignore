@@ -1,2 +1,5 @@
 localhost
 seleniumConfig.txt
+/__pycache__
+config.json
+*.pickle
