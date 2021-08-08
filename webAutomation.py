@@ -31,5 +31,4 @@ if __name__ == "__main__":
     web = gdtot_Handler()
     file_name1 = web.click_on_download_get_file_name(9600686633)
     file_name2 = web.click_on_download_get_file_name(5843169478)
-    print(file_name1, file_name2)
-    # web.close()
+    print(file_name1)
