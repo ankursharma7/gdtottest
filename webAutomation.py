@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
 
-class gdtot_Handler:
+class Gdtot_Handler:
     #  this will initialize new selenium session for work
     def __init__(self) -> None:
         options = webdriver.ChromeOptions()
