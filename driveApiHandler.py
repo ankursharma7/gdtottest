@@ -41,10 +41,13 @@ class Drive:
             status, done = downloader.next_chunk()
             print("downloading progress", status.progress() * 100)
 
+    def delete_file_by_id(self, file_id):
+        # this method will delete file from google drive using its file id
+        self.service.files().delete(fileId=file_id).execute()
+
 
 if __name__ == "__main__":
     drive = Drive("14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k")
-    file = drive.get_file_id_by_name(
-        "Gully Boy 2019 BluRay Hindi 1080p x264 DD 5.1 ESub - mkvCinemas [Telly].mkv"
-    )
+    file = drive.get_file_id_by_name("Dosti Ke Side Effects [816p].mkv")
     drive.download_by_id(file["id"], file["name"], r"D:\test")
+    drive.delete_file_by_id(file["id"])
