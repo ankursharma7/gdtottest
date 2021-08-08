@@ -13,7 +13,7 @@ def downloader(gdtot_movie_id):
     # this will search by name in gdrive and get g drive movie id
     g_drive_movie = g_drive.get_file_id_by_name(movie_file_name)
 
-    movie_id = gdtot_movie_id["id"]
+    movie_id = g_drive_movie["id"]
     movie_name = g_drive_movie["name"]
 
     # this will start downlaoding file to local storage
