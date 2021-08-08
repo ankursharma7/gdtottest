@@ -4,6 +4,8 @@ from webAutomation import Gdtot_Handler
 
 def downloader(gdtot_movie_id):
     gdtot = Gdtot_Handler()
+    # this will check the download button and return the file name
+    movie_file_name = gdtot.click_on_download_get_file_name(gdtot_movie_id)
 
 
 def main():
