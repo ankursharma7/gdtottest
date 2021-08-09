@@ -23,7 +23,7 @@ class Drive:
         for file in files:
             if file["name"] == file_name:
                 return file
-
+        print(files)
         raise Exception("file not found.")
 
     def download_by_id(self, file_id, file_name, download_location):
@@ -34,7 +34,7 @@ class Drive:
             "wb",
         )
 
-        downloader = MediaIoBaseDownload(fd=fh, request=request, chunksize=100000000)
+        downloader = MediaIoBaseDownload(fd=fh, request=request, chunksize=200000000)
         done = False
 
         while not done:

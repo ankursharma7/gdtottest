@@ -3,3 +3,4 @@ seleniumConfig.txt
 /__pycache__
 config.json
 *.pickle
+/movie_id.txt

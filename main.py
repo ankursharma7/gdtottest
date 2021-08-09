@@ -2,11 +2,15 @@ from driveApiHandler import Drive
 from webAutomation import Gdtot_Handler
 
 
-def downloader(movie_file_name):
+def downloader(single_movie_id):
+    gdtot = Gdtot_Handler()
     g_drive = Drive(
         "14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k"
     )  # drive folder id where gdtot save files
     folder_location = r"E:\gg"
+
+    # this will check the download button and return the file name
+    movie_file_name = gdtot.click_on_download_get_file_name(single_movie_id)
 
     # this will search by name in gdrive and get g drive movie id
     g_drive_movie = g_drive.get_file_id_by_name(movie_file_name)
@@ -28,22 +32,9 @@ def get_movie_id_from_txt():
 
 
 def main():
-    # gdtot = Gdtot_Handler()
     download_list = iter(get_movie_id_from_txt())
-    print("gg")
-    Done = True
-    while Done:
-        movies_threads = []
-        for _ in range(2):
-            try:
-                single_movie_id = next(download_list)
-                movies_threads.append(single_movie_id)
-                # this will check the download button and return the file name
-                # movie_file_name = gdtot.click_on_download_get_file_name(single_movie_id)
-            except StopIteration:
-                Done = False
-                break
-        print(movies_threads)
+    for movie_id in download_list:
+        downloader(movie_id)
 
 
 if __name__ == "__main__":
