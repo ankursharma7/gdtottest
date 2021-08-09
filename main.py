@@ -2,15 +2,11 @@ from driveApiHandler import Drive
 from webAutomation import Gdtot_Handler
 
 
-def downloader(gdtot_movie_id):
-    gdtot = Gdtot_Handler()
+def downloader(movie_file_name):
     g_drive = Drive(
         "14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k"
     )  # drive folder id where gdtot save files
-    folder_location = r"D:\test"
-
-    # this will check the download button and return the file name
-    movie_file_name = gdtot.click_on_download_get_file_name(gdtot_movie_id)
+    folder_location = r"E:\gg"
 
     # this will search by name in gdrive and get g drive movie id
     g_drive_movie = g_drive.get_file_id_by_name(movie_file_name)
@@ -25,23 +21,29 @@ def downloader(gdtot_movie_id):
     g_drive.delete_file_by_id(movie_id)
 
 
+def get_movie_id_from_txt():
+    text_file = open("movie_id.txt", "r")
+    movie_ids = text_file.read().split("\n")
+    return movie_ids
+
+
 def main():
-    download_list = [
-        9600686633,
-        # 5843169478,
-        # 8652176971,
-        # 4886328860,
-        # 15649968576,
-        # 3252564971,
-        # 10037126231,
-        # 4791101649,
-        # 5440624471,
-        # 3952435677,
-        # 3930462785,
-        # 4596393142,
-    ]
-    for movie_id in download_list:
-        downloader(movie_id)
+    # gdtot = Gdtot_Handler()
+    download_list = iter(get_movie_id_from_txt())
+    print("gg")
+    Done = True
+    while Done:
+        movies_threads = []
+        for _ in range(2):
+            try:
+                single_movie_id = next(download_list)
+                movies_threads.append(single_movie_id)
+                # this will check the download button and return the file name
+                # movie_file_name = gdtot.click_on_download_get_file_name(single_movie_id)
+            except StopIteration:
+                Done = False
+                break
+        print(movies_threads)
 
 
 if __name__ == "__main__":
