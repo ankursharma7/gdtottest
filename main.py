@@ -30,6 +30,10 @@ def get_movie_id_from_txt():
     movie_ids = text_file.read().split("\n")
     return movie_ids
 
+def create_list_of_downloaded_files_id(movie_id):
+    file = open("downloaded.txt", "a")
+    file.writelines(movie_id)
+    file.close()
 
 def main():
     download_list = iter(get_movie_id_from_txt())
@@ -38,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    create_list_of_downloaded_files_id("234234234")
