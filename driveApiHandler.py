@@ -14,14 +14,25 @@ class Drive:
     def __init__(self, folder_id) -> None:
         self.folder_id = folder_id
 
-    def get_file_id_by_name(self, file_name):
-        #  this will return the file object with id and name
+    def get_all_files(self):
         query = f"parents = '{self.folder_id}'"
         response = self.service.files().list(q=query).execute()
         files = response.get("files")
+        return files
 
+    def get_file_id_by_name(self, file_name):
+        #  this will return the file object with id and name
+        files = self.get_all_files()
         for file in files:
-            if file["name"] == file_name:
+            if file["file_name"] == file_name:
+                return file
+        print(files)
+        raise Exception("file not found.")
+
+    def get_movie_info_with_id(self, file_id):
+        files = self.get_all_files()
+        for file in files:
+            if file["id"] == file_id:
                 return file
         print(files)
         raise Exception("file not found.")
@@ -34,7 +45,8 @@ class Drive:
             "wb",
         )
 
-        downloader = MediaIoBaseDownload(fd=fh, request=request, chunksize=200000000)
+        downloader = MediaIoBaseDownload(
+            fd=fh, request=request, chunksize=200000000)
         done = False
 
         while not done:
@@ -48,6 +60,8 @@ class Drive:
 
 if __name__ == "__main__":
     drive = Drive("14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k")
-    file = drive.get_file_id_by_name("Dosti Ke Side Effects [816p].mkv")
-    drive.download_by_id(file["id"], file["name"], r"D:\test")
-    drive.delete_file_by_id(file["id"])
+    # file = drive.get_file_id_by_name("Dosti Ke Side Effects [816p].mkv")
+    # drive.download_by_id(file["id"], file["name"], r"D:\test")
+    # drive.delete_file_by_id(file["id"])
+    # file_info = drive.get_movie_info_with_id(
+    #     "1Yvi-rdgfVI3ExfJt3UZVlGRF2kQ2_681")

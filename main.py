@@ -10,10 +10,11 @@ def downloader(single_movie_id):
     folder_location = r"E:\gg"
 
     # this will check the download button and return the file name
-    movie_file_name = gdtot.click_on_download_get_file_name(single_movie_id)
+    movie_gdrive_id = gdtot.click_on_download_get_file_gdrive_id(
+        single_movie_id)
 
     # this will search by name in gdrive and get g drive movie id
-    g_drive_movie = g_drive.get_file_id_by_name(movie_file_name)
+    g_drive_movie = g_drive.get_movie_info_with_id(movie_gdrive_id)
 
     movie_id = g_drive_movie["id"]
     movie_name = g_drive_movie["name"]
@@ -31,10 +32,13 @@ def get_movie_id_from_txt():
     return movie_ids
 
 # this will create an list for the item
+
+
 def create_list_of_downloaded_files_id(movie_id):
     file = open("downloaded.txt", "a")
-    file.writelines(movie_id)
+    file.writelines(movie_id+"\n")
     file.close()
+
 
 def main():
 
@@ -42,6 +46,7 @@ def main():
     for movie_id in download_list:
         downloader(movie_id)
         create_list_of_downloaded_files_id(movie_id)
+
 
 if __name__ == "__main__":
     main()

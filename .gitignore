@@ -4,3 +4,4 @@ seleniumConfig.txt
 config.json
 *.pickle
 /movie_id.txt
+/downloaded.txt
