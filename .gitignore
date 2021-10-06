@@ -5,3 +5,5 @@ config.json
 *.pickle
 /movie_id.txt
 /downloaded.txt
+get_all_id.ipynb
+/others

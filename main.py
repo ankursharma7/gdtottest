@@ -4,9 +4,8 @@ from webAutomation import Gdtot_Handler
 
 def downloader(single_movie_id):
     gdtot = Gdtot_Handler()
-    g_drive = Drive(
-        "14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k"
-    )  # drive folder id where gdtot save files
+    g_drive = Drive("14oDKaoukF3AiIZ1g9-9fw33E5MgwPI-k"
+                    )  # drive folder id where gdtot save files
     folder_location = r"E:\gg"
 
     # this will check the download button and return the file name
@@ -31,21 +30,38 @@ def get_movie_id_from_txt():
     movie_ids = text_file.read().split("\n")
     return movie_ids
 
+
 # this will create an list for the item
 
 
 def create_list_of_downloaded_files_id(movie_id):
     file = open("downloaded.txt", "a")
-    file.writelines(movie_id+"\n")
+    file.writelines("\n" + movie_id)
     file.close()
+
+
+def delete_from_movie_id(movie_id):
+    file = open("movie_id.txt", "r")
+    all_lines = file.read().split("\n")
+
+    all_lines.remove(movie_id)
+
+    new_text = "\n".join(all_lines)
+
+    file = open("movie_id.txt", "w")
+    file.write(new_text)
 
 
 def main():
 
     download_list = get_movie_id_from_txt()
     for movie_id in download_list:
-        downloader(movie_id)
-        create_list_of_downloaded_files_id(movie_id)
+        try:
+            downloader(movie_id)
+            create_list_of_downloaded_files_id(movie_id)
+        except:
+            pass
+        delete_from_movie_id(movie_id)
 
 
 if __name__ == "__main__":
